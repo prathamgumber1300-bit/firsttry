@@ -1,6 +1,5 @@
 pandas==2.2.2
 streamlit==1.37.1
-playwright==1.46.0
 PyYAML==6.0.2
 plotly==5.23.0
 python-dateutil==2.9.0.post0
