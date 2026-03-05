@@ -1,0 +1,37 @@
+brands:
+  Bebodywise:
+    rationale: "Science-led personal care and wellness products for women in India."
+    competitors:
+      - name: Minimalist
+        why: "Ingredient-first skincare with overlapping acne and pigmentation messaging."
+      - name: The Derma Co
+        why: "Dermat-backed actives and routine education for similar skin concerns."
+      - name: Plum Goodness
+        why: "D2C skincare with heavy social ad investment and broad women audience."
+      - name: mCaffeine
+        why: "Youth-focused body and skin care with strong performance creative cadence."
+  Man Matters:
+    rationale: "Men's wellness and personal care targeting hair, beard, and sexual wellness."
+    competitors:
+      - name: Beardo
+        why: "Men grooming brand competing on beard, hair, and styling categories."
+      - name: Ustraa
+        why: "Direct men grooming overlap and similar value-led offer messaging."
+      - name: Traya Health
+        why: "Hair-fall solution category competitor with long-form educational creatives."
+      - name: Bold Care
+        why: "Men's intimate wellness with strong direct response ad formats."
+  Little Joys:
+    rationale: "Baby and kids care with parent-trust and safety-led purchase triggers."
+    competitors:
+      - name: Mamaearth Baby
+        why: "Large baby care portfolio and broad Meta ad footprint in India."
+      - name: The Moms Co
+        why: "Pregnancy and baby care with ingredient-trust positioning."
+      - name: Cetaphil Baby
+        why: "Sensitive skin baby care with dermatologist and safety-led claims."
+      - name: Sebamed Baby India
+        why: "pH-safe baby care with premium positioning and educational messaging."
+meta:
+  country: IN
+  max_ads_per_brand: 20
