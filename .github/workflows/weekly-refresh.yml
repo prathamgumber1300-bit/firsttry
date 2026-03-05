@@ -1,0 +1,26 @@
+name: Weekly Meta Ad Refresh
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 4 * * 1"
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install chromium
+      - name: Scrape latest ads
+        run: python scripts/scrape_meta_ads.py
+      - name: Upload data artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: meta-ads-data
+          path: data/
