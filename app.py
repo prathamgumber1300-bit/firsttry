@@ -11,24 +11,50 @@ st.set_page_config(page_title="Mosaic Competitive Intelligence", layout="wide", 
 st.markdown(
     """
     <style>
-      .main {background: linear-gradient(180deg, #f8fbff 0%, #eef4ff 100%);} 
-      .block-container {padding-top: 1.4rem;}
+      .main {
+          background: radial-gradient(circle at top right, #f9fbff 0%, #eef4ff 38%, #f6f5ff 100%);
+      }
+      .block-container {padding-top: 1.2rem;}
       .kpi-card {
-          background: linear-gradient(135deg, #0f62fe 0%, #6f42c1 100%);
+          background: linear-gradient(135deg, #0f62fe 0%, #6f42c1 55%, #9333ea 100%);
           border-radius: 14px;
           padding: 0.9rem 1rem;
           color: white;
           margin-bottom: 0.6rem;
+          box-shadow: 0 4px 12px rgba(34, 28, 73, 0.16);
       }
-      .kpi-title {font-size: 0.85rem; opacity: 0.9;}
-      .kpi-value {font-size: 1.5rem; font-weight: 700;}
+      .kpi-title {font-size: 0.83rem; opacity: 0.92;}
+      .kpi-value {font-size: 1.45rem; font-weight: 700;}
+      .hero {
+          background: linear-gradient(90deg, #0b2447 0%, #19376d 45%, #576cbc 100%);
+          border-radius: 18px;
+          padding: 18px 20px;
+          color: #ffffff;
+          margin-bottom: 1rem;
+      }
+      .hero h2 {margin: 0 0 6px 0;}
+      .hero p {margin: 0; opacity: 0.92;}
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-st.title("🚀 Mosaic Meta Ad Intelligence")
-st.caption("Track competitor ad strategy shifts with visual insights, trend charts, and weekly actions.")
+st.markdown(
+    """
+    <div class="hero">
+      <h2>🚀 Mosaic Meta Ad Intelligence Dashboard</h2>
+      <p>Colorful, insight-first monitoring for competitor creative trends, themes, and weekly ad strategy shifts.</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+header_left, header_right = st.columns([4, 1])
+header_left.caption("Track what competitors are testing, scaling, and abandoning — then act on Monday morning.")
+header_right.image(
+    "https://images.unsplash.com/photo-1551281044-8b77c4ea9d9e?auto=format&fit=crop&w=420&q=80",
+    use_column_width=True,
+)
 
 DATA_PATH = Path("data/meta_ads_latest.csv")
 
@@ -42,6 +68,14 @@ if raw.empty:
     st.stop()
 
 df = enrich(raw)
+
+with st.sidebar:
+    st.image(
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=700&q=80",
+        caption="Creative Intelligence",
+        use_column_width=True,
+    )
+    st.markdown("### 🎯 Quick Filters")
 
 # ---------- Filters ----------
 st.subheader("🎛️ Filter Controls")
@@ -146,6 +180,21 @@ if not analysis_df.empty:
             color_discrete_sequence=px.colors.qualitative.Set2,
         )
         st.plotly_chart(fig_line, use_container_width=True)
+
+    treemap_df = (
+        analysis_df.groupby(["mosaic_brand", "message_theme"], as_index=False)
+        .size()
+        .rename(columns={"size": "ad_count"})
+    )
+    fig_tree = px.treemap(
+        treemap_df,
+        path=["mosaic_brand", "message_theme"],
+        values="ad_count",
+        color="ad_count",
+        color_continuous_scale="Viridis",
+        title="Theme Concentration by Brand (Treemap)",
+    )
+    st.plotly_chart(fig_tree, use_container_width=True)
 else:
     st.info("Charts will appear once filters return at least one row.")
 
